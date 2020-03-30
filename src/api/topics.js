@@ -9,6 +9,9 @@ const topics = {
       },
     });
   },
+  getDetailById(id) {
+    return axios.get(`${base.main}/topic/${id}`);
+  },
 };
 
 export default topics;
