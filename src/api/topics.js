@@ -12,6 +12,12 @@ const topics = {
   getDetailById(id) {
     return axios.get(`${base.main}/topic/${id}`);
   },
+  collectTopicById(id) {
+    return axios.post(`${base.main}/topic_collect/collect`, {
+      accesstoken: base.token,
+      topic_id: id,
+    });
+  },
 };
 
 export default topics;
