@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import store from 'store';
 import Home from '../views/Home.vue';
 
 Vue.use(VueRouter);
@@ -24,6 +25,14 @@ const routes = [
   {
     path: '/profile',
     name: 'Profile',
+    beforeEnter: (to, from, next) => {
+      // ...
+      if (!store.get('loginname')) {
+        next('/login');
+      } else {
+        next();
+      }
+    },
     component: () => import(/* webpackChunkName: "about" */ '../views/Profile.vue'),
 
   },

@@ -1,6 +1,7 @@
+import store from 'store';
 import axios from './http'; // 导入http中创建的axios实例
-import base from './base'; // 导入接口域名列表
-
+import base from './base';
+// 导入接口域名列表
 const topics = {
   getTopicsByTab(page, limit, tab) {
     return axios.get(`${base.main}/topics`, {
@@ -10,11 +11,14 @@ const topics = {
     });
   },
   getDetailById(id) {
-    return axios.get(`${base.main}/topic/${id}`);
+    const accesstoken = store.get('token');
+    console.log(accesstoken);
+    return axios.get(`${base.main}/topic/${id}?accesstoken=${accesstoken}`);
   },
   collectTopicById(id) {
+    const accesstoken = store.get('token');
     return axios.post(`${base.main}/topic_collect/collect`, {
-      accesstoken: base.token,
+      accesstoken,
       topic_id: id,
     });
   },

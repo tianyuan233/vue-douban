@@ -65,13 +65,6 @@ export default {
       this.refreshing = false;
     },
   },
-  // mounted() {
-  //   this.$api.topics.getTopicsByTab(1, 10, this.tag).then(({ data }) => {
-  //     if (data.success) {
-  //       this.topics = data.data;
-  //     }
-  //   });
-  // },
   computed: {
     currentpage() {
       return this.topics.length / 10;

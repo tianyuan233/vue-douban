@@ -12,17 +12,17 @@
         <van-button round block type="info" native-type="submit">提交</van-button>
       </div>
     </van-form>
+    <div style="margin: 16px;">
+      <van-button round block type="info" @click="goBack">返回前页</van-button>
+    </div>
   </div>
 </template>
 
 <script>
 import Vue from 'vue';
-import {
-  Form, Field, Button,
-} from 'vant';
+import { Form, Field, Button } from 'vant';
 import store from 'store';
 import router from '../router';
-
 
 Vue.use(Form)
   .use(Field)
@@ -42,6 +42,10 @@ export default {
           router.replace({ path: '/profile' });
         }
       });
+    },
+    goBack() {
+      console.log(this.$router);
+      this.$router.history.go(-1);
     },
   },
 };

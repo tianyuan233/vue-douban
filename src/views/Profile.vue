@@ -25,9 +25,12 @@
       </van-cell-group>
     </div>
     <van-divider></van-divider>
-    <div class="other">
+    <div class="topic">
         <van-cell title="创建的话题" is-link to="index" />
         <van-cell title="参与的话题" is-link to="index" />
+    </div>
+    <div class="logout">
+      <van-button type="danger" round block @click="onClickLogout">退 出</van-button>
     </div>
     <van-tabbar route>
       <van-tabbar-item replace to="/" icon="home-o">首页</van-tabbar-item>
@@ -39,15 +42,17 @@
 <script>
 import Vue from 'vue';
 import {
-  Cell, CellGroup, Image, Divider,
+  Cell, CellGroup, Image, Divider, Button, Loading,
 } from 'vant';
-
 import store from 'store';
+import router from '../router';
 
 Vue.use(Cell)
   .use(CellGroup)
   .use(Image)
-  .use(Divider);
+  .use(Divider)
+  .use(Loading)
+  .use(Button);
 export default {
   data() {
     return {
@@ -58,6 +63,12 @@ export default {
       recent_topics: {},
       recent_replies: {},
     };
+  },
+  methods: {
+    onClickLogout() {
+      store.clearAll();
+      router.replace({ path: '/' });
+    },
   },
   mounted() {
     const loginname = store.get('loginname');
@@ -76,6 +87,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .profile {
+  margin-bottom: 70px;
   background-color: #f7f8fa;
   .avatarWrapper {
     position: relative;
@@ -89,6 +101,9 @@ export default {
   }
   .other {
     height: 300px;
+  }
+  .logout {
+    padding: 16px 0;
   }
 }
 </style>

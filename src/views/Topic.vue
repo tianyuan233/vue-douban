@@ -6,10 +6,10 @@
     </van-panel>
     <van-divider></van-divider>
     <div class="collectBtn">
-      <van-button type="primary" size="large"
+      <van-button type="info" size="large"
       @click="onClickDelCollect" v-if="is_collect">
       已收藏</van-button>
-      <van-button plain type="primary" size="large"
+      <van-button plain type="info" size="large"
       @click="onClickCollect" v-else>
       点击收藏</van-button>
     </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <van-tabs sticky>
+    <van-tabs sticky color="#3388ff">
       <van-tab title="全部">
         <List tag></List>
       </van-tab>
