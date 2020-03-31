@@ -9,7 +9,7 @@
         v-for="topic in topics"
         :key="topic.id"
         :title="topic.title"
-        :label="[topic.author.loginname +' '+topic.create_at].join()"
+        :label="[topic.author.loginname + ' 发布于'+ format(topic.create_at)].join()"
         is-link :to="'/topic/' + topic.id"
          />
     </van-list>
@@ -21,6 +21,7 @@ import Vue from 'vue';
 import {
   Card, List, Cell, PullRefresh,
 } from 'vant';
+import moment from 'moment';
 
 Vue.use(Cell);
 Vue.use(PullRefresh);
@@ -42,6 +43,10 @@ export default {
     };
   },
   methods: {
+    format(time) {
+      moment.locale('zh-cn');
+      return moment(time).fromNow();
+    },
     onLoad() {
       this.$api.topics.getTopicsByTab(this.currentpage + 1, 10, this.tag).then((res) => {
         if (res.data.success) {

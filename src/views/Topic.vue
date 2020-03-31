@@ -17,6 +17,7 @@
   </div>
 </template>
 <script>
+import moment from 'moment';
 import Vue from 'vue';
 import {
   NavBar, Panel, Divider, Button, Toast,
@@ -41,6 +42,10 @@ export default {
     };
   },
   methods: {
+    format(time) {
+      moment.locale('zh-cn');
+      return moment(time).fromNow();
+    },
     onClickLeft() {
       this.$router.history.go(-1);
     },
@@ -75,7 +80,7 @@ export default {
         const topic = data.data;
         this.title = topic.title;
         this.content = topic.content;
-        this.loginname = topic.loginname;
+        this.loginname = topic.author.loginname;
         this.create_at = topic.create_at;
         this.visit_count = topic.visit_count;
         this.reply_count = topic.reply_count;
@@ -85,7 +90,7 @@ export default {
   },
   computed: {
     desc() {
-      return `作者${this.loginname} 发布于${this.create_at.split('T')[0]} ${
+      return `作者${this.loginname} 发布于${this.format(this.create_at)} ${
         this.visit_count
       }次浏览`;
     },

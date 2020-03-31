@@ -1,13 +1,10 @@
 <template>
   <div class="profile">
     <div class="avatarWrapper">
-      <van-image
-        class="avatar"
-        round
-        width="100px"
-        height="100px"
-        :src="avatar_url"
-      >
+      <van-image class="avatar" width="100px" height="100px" :src="avatar_url">
+        <template v-slot:error>
+          头像加载失败
+        </template>
         <template v-slot:loading>
           <van-loading type="spinner" size="20" />
         </template>
@@ -18,7 +15,7 @@
         <van-cell :title="loginname" />
       </van-cell-group>
       <van-cell-group title="注册时间">
-        <van-cell :title="create_at" />
+        <van-cell :title="format(create_at)" />
       </van-cell-group>
       <van-cell-group title="现有积分">
         <van-cell :title="score" />
@@ -26,8 +23,8 @@
     </div>
     <van-divider></van-divider>
     <div class="topic">
-        <van-cell title="创建的话题" is-link to="index" />
-        <van-cell title="参与的话题" is-link to="index" />
+      <van-cell title="创建的话题" is-link to="index" />
+      <van-cell title="参与的话题" is-link to="index" />
     </div>
     <div class="logout">
       <van-button type="danger" round block @click="onClickLogout">退 出</van-button>
@@ -40,6 +37,7 @@
   </div>
 </template>
 <script>
+import moment from 'moment';
 import Vue from 'vue';
 import {
   Cell, CellGroup, Image, Divider, Button, Loading,
@@ -69,6 +67,10 @@ export default {
       store.clearAll();
       router.replace({ path: '/' });
     },
+    format(time) {
+      moment.locale('zh-cn');
+      return moment(time).fromNow();
+    },
   },
   mounted() {
     const loginname = store.get('loginname');
@@ -83,6 +85,9 @@ export default {
       }
     });
   },
+  computed: {
+    
+  }
 };
 </script>
 <style lang="scss" scoped>

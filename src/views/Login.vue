@@ -44,7 +44,6 @@ export default {
       });
     },
     goBack() {
-      console.log(this.$router);
       this.$router.history.go(-1);
     },
   },
