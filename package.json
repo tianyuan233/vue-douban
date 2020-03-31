@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --report",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
+    "moment": "^2.24.0",
     "store": "^2.0.12",
     "vant": "^2.5.7",
     "vue": "^2.6.11",
