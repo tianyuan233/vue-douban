@@ -2,9 +2,7 @@
   <div class="profile">
     <div class="avatarWrapper">
       <van-image class="avatar" width="100px" height="100px" :src="avatar_url">
-        <template v-slot:error>
-          头像加载失败
-        </template>
+        <template v-slot:error>头像加载失败</template>
         <template v-slot:loading>
           <van-loading type="spinner" size="20" />
         </template>
@@ -21,11 +19,10 @@
         <van-cell :title="score" />
       </van-cell-group>
     </div>
-    <van-divider></van-divider>
-    <div class="topic">
-      <van-cell title="创建的话题" is-link to="index" />
-      <van-cell title="参与的话题" is-link to="index" />
-    </div>
+    <van-cell-group title="主题">
+      <van-cell title="已创建" is-link to="index" :value="topic_count + '个'"></van-cell>
+      <van-cell title="已参与" is-link to="index" :value="reply_count + '个'"></van-cell>
+    </van-cell-group>
     <div class="logout">
       <van-button type="danger" round block @click="onClickLogout">退 出</van-button>
     </div>
@@ -40,7 +37,7 @@
 import moment from 'moment';
 import Vue from 'vue';
 import {
-  Cell, CellGroup, Image, Divider, Button, Loading,
+  Cell, CellGroup, Image, Divider, Button, Loading, Tag,
 } from 'vant';
 import store from 'store';
 import router from '../router';
@@ -50,6 +47,7 @@ Vue.use(Cell)
   .use(Image)
   .use(Divider)
   .use(Loading)
+  .use(Tag)
   .use(Button);
 export default {
   data() {
@@ -86,8 +84,13 @@ export default {
     });
   },
   computed: {
-    
-  }
+    reply_count() {
+      return 6;
+    },
+    topic_count() {
+      return 5;
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
