@@ -12,7 +12,6 @@ const topics = {
   },
   getDetailById(id) {
     const accesstoken = store.get('token');
-    console.log(accesstoken);
     return axios.get(`${base.main}/topic/${id}?accesstoken=${accesstoken}`);
   },
   getCollectByName(name) {

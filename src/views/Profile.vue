@@ -23,8 +23,8 @@
       <van-cell title="已创建" is-link to="index" :value="topic_count + '个'"></van-cell>
       <van-cell title="已参与" is-link to="index" :value="reply_count + '个'"></van-cell>
     </van-cell-group>
-    <div class="logout">
-      <van-button type="danger" round block @click="onClickLogout">退 出</van-button>
+    <div class="logout" >
+      <van-button type="info" plain round block @click="onClickLogout">退 出</van-button>
     </div>
     <van-tabbar route>
       <van-tabbar-item replace to="/" icon="home-o">首页</van-tabbar-item>
@@ -111,7 +111,7 @@ export default {
     height: 300px;
   }
   .logout {
-    padding: 16px 0;
+    margin: 16px;
   }
 }
 </style>
