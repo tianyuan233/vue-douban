@@ -18,6 +18,12 @@ const topics = {
       topic_id: id,
     });
   },
+  delcollectTopicById(id) {
+    return axios.post(`${base.main}/topic_collect/de_collect`, {
+      accesstoken: base.token,
+      topic_id: id,
+    });
+  },
 };
 
 export default topics;

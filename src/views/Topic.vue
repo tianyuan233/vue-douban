@@ -6,8 +6,12 @@
     </van-panel>
     <van-divider></van-divider>
     <div class="collectBtn">
-      <van-button type="primary" size="large" v-if="is_collect">已收藏</van-button>
-      <van-button plain type="primary" size="large" @click="onClickCollect" v-else>点击收藏</van-button>
+      <van-button type="primary" size="large"
+      @click="onClickDelCollect" v-if="is_collect">
+      已收藏</van-button>
+      <van-button plain type="primary" size="large"
+      @click="onClickCollect" v-else>
+      点击收藏</van-button>
     </div>
     <van-divider>{{reply_count}}次回复</van-divider>
   </div>
@@ -45,10 +49,22 @@ export default {
         .collectTopicById(this.$route.params.id)
         .then(({ data }) => {
           if (data.success) {
-            this.is_collect = true;
+            this.is_collect = !this.is_collect;
             Toast.success('已收藏');
           } else {
             Toast.fail('失败');
+          }
+        });
+    },
+    onClickDelCollect() {
+      this.$api.topics
+        .delcollectTopicById(this.$route.params.id)
+        .then(({ data }) => {
+          if (data.success) {
+            this.is_collect = !this.is_collect;
+            Toast.success('取消收藏');
+          } else {
+            Toast.fail('操作失败');
           }
         });
     },
