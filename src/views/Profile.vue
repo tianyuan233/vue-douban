@@ -1,5 +1,34 @@
 <template>
-  <div class="about">
+  <div class="profile">
+    <div class="avatarWrapper">
+      <van-image
+        class="avatar"
+        round
+        width="100px"
+        height="100px"
+        :src="avatar_url"
+      >
+        <template v-slot:loading>
+          <van-loading type="spinner" size="20" />
+        </template>
+      </van-image>
+    </div>
+    <div class="info">
+      <van-cell-group title="用户名">
+        <van-cell :title="loginname" />
+      </van-cell-group>
+      <van-cell-group title="注册时间">
+        <van-cell :title="create_at" />
+      </van-cell-group>
+      <van-cell-group title="现有积分">
+        <van-cell :title="score" />
+      </van-cell-group>
+    </div>
+    <van-divider></van-divider>
+    <div class="other">
+        <van-cell title="创建的话题" is-link to="index" />
+        <van-cell title="参与的话题" is-link to="index" />
+    </div>
     <van-tabbar route>
       <van-tabbar-item replace to="/" icon="home-o">首页</van-tabbar-item>
       <van-tabbar-item replace to="/collect" icon="star-o">收藏</van-tabbar-item>
@@ -7,3 +36,59 @@
     </van-tabbar>
   </div>
 </template>
+<script>
+import Vue from 'vue';
+import {
+  Cell, CellGroup, Image, Divider,
+} from 'vant';
+
+import store from 'store';
+
+Vue.use(Cell)
+  .use(CellGroup)
+  .use(Image)
+  .use(Divider);
+export default {
+  data() {
+    return {
+      loginname: '',
+      avatar_url: '',
+      create_at: '',
+      score: 0,
+      recent_topics: {},
+      recent_replies: {},
+    };
+  },
+  mounted() {
+    const loginname = store.get('loginname');
+    this.$api.user.getUserInfo(loginname).then(({ data }) => {
+      if (data.success) {
+        this.loginname = data.data.loginname;
+        this.avatar_url = data.data.avatar_url;
+        this.create_at = data.data.create_at;
+        this.score = data.data.score;
+        this.recent_topics = data.data.recent_topics;
+        this.recent_replies = data.data.recent_replies;
+      }
+    });
+  },
+};
+</script>
+<style lang="scss" scoped>
+.profile {
+  background-color: #f7f8fa;
+  .avatarWrapper {
+    position: relative;
+    height: 150px;
+    .avatar {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  .other {
+    height: 300px;
+  }
+}
+</style>
