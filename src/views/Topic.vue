@@ -17,18 +17,20 @@
   </div>
 </template>
 <script>
-import moment from 'moment';
 import Vue from 'vue';
 import {
   NavBar, Panel, Divider, Button, Toast,
 } from 'vant';
+import formatTime from '@/mixins';
 
 Vue.use(Toast);
 Vue.use(NavBar)
   .use(Panel)
   .use(Divider)
   .use(Button);
+
 export default {
+  mixins: [formatTime],
   data() {
     return {
       title: '',
@@ -42,10 +44,6 @@ export default {
     };
   },
   methods: {
-    format(time) {
-      moment.locale('zh-cn');
-      return moment(time).fromNow();
-    },
     onClickLeft() {
       this.$router.history.go(-1);
     },

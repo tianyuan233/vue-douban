@@ -25,20 +25,15 @@ import {
   NavBar, List, Cell,
 } from 'vant';
 import store from 'store';
-import moment from 'moment';
+import formatTime from '@/mixins';
 
 Vue.use(NavBar, List, Cell);
 export default {
+  mixins: [formatTime],
   data() {
     return {
       collect_topics: [],
     };
-  },
-  methods: {
-    format(time) {
-      moment.locale('zh-cn');
-      return moment(time).fromNow();
-    },
   },
   mounted() {
     const name = store.get('loginname');

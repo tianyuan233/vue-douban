@@ -21,13 +21,14 @@ import Vue from 'vue';
 import {
   Card, List, Cell, PullRefresh,
 } from 'vant';
-import moment from 'moment';
+import formatTime from '@/mixins';
 
 Vue.use(Cell);
 Vue.use(PullRefresh);
 Vue.use(Card).use(List);
 
 export default {
+  mixins: [formatTime],
   props: {
     tag: {
       type: String,
@@ -43,10 +44,6 @@ export default {
     };
   },
   methods: {
-    format(time) {
-      moment.locale('zh-cn');
-      return moment(time).fromNow();
-    },
     onLoad() {
       this.$api.topics.getTopicsByTab(this.currentpage + 1, 10, this.tag).then((res) => {
         if (res.data.success) {

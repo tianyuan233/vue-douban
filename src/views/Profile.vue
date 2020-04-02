@@ -34,13 +34,14 @@
   </div>
 </template>
 <script>
-import moment from 'moment';
 import Vue from 'vue';
 import {
   Cell, CellGroup, Image, Divider, Button, Loading, Tag,
 } from 'vant';
 import store from 'store';
+import formatTime from '@/mixins';
 import router from '../router';
+
 
 Vue.use(Cell)
   .use(CellGroup)
@@ -49,7 +50,9 @@ Vue.use(Cell)
   .use(Loading)
   .use(Tag)
   .use(Button);
+
 export default {
+  mixins: [formatTime],
   data() {
     return {
       loginname: '',
@@ -64,10 +67,6 @@ export default {
     onClickLogout() {
       store.clearAll();
       router.replace({ path: '/' });
-    },
-    format(time) {
-      moment.locale('zh-cn');
-      return moment(time).fromNow();
     },
   },
   mounted() {
